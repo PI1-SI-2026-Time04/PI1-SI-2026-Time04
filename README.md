@@ -2,7 +2,7 @@
 Projetinho de Python
 
 # Integrantes
-- Vitor Ramos
+- Victor Ramos
 - Anita Barbosa
 - Maria Daoe
 - Miguel Souza
