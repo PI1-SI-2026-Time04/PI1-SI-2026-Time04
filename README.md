@@ -48,14 +48,14 @@ Registrar solicitação vinculada ao solicitante, contendo tipo/categoria, descr
 ## RF03 – Prioridade Automática
 Definir regra objetiva para cálculo automático de prioridade (Baixa/Média/Alta) e armazenar no banco.
 
-Tabela Prioridade
+### Tabela Prioridade
 | Campo            | Descrição                                                | Obrigatório |
 | ---------------- | -------------------------------------------------------- | ----------- |
 | ID da Prioridade | Identificador único da prioridade                        | Sim         |
 | Nome             | Nome da prioridade (Baixa, Média, Alta, Crítica)         | Sim         |
 | Valor            | Valor de 0 a 5 para calcular o peso                      | Sim         |
 
-Tabela Categoria
+### Tabela Categoria
 | Campo           | Descrição                                                         | Obrigatório |
 | --------------- | ----------------------------------------------------------------- | ----------- |
 | ID da Categoria | Identificador único da categoria                                  | Sim         |
