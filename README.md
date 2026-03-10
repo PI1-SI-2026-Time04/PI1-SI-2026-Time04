@@ -4,7 +4,7 @@ Projetinho de Python
 # Integrantes
 - Victor Ramos
 - Anita Barbosa
-- Maria Daoe
+- Maria Daon
 - Miguel Souza
 
 # Tecnologias Utilizadas
