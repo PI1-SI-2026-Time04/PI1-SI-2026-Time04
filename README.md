@@ -30,7 +30,7 @@ Cadastrar e listar solicitantes com validação básica de dados.
 | Telefone           | Número de telefone para contato          | Não         |
 | Data de Nascimento | Data de nascimento do solicitante        | Não         |
   
-- RF02 – Abertura de Solicitação
+## RF02 – Abertura de Solicitação
 Registrar solicitação vinculada ao solicitante, contendo tipo/categoria, descrição, data/hora e status inicial.
 
 | Campo             | Descrição                                                           | Obrigatório |
