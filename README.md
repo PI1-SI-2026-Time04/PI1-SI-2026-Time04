@@ -19,6 +19,13 @@ Projetinho de Python
 
 - RF01 – Cadastro de Solicitante
 Cadastrar e listar solicitantes com validação básica de dados.
+- Usuário
+- Senha
+- Email
+- Departamento
+- Telefone
+- Data de Nascimento
+  
 - RF02 – Abertura de Solicitação
 Registrar solicitação vinculada ao solicitante, contendo tipo/categoria, descrição, data/hora
 e status inicial.
