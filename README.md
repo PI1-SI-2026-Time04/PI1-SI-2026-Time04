@@ -22,6 +22,7 @@ Cadastrar e listar solicitantes com validação básica de dados.
 
 | Campo               | Descrição                              | Obrigatório |
 |--------------------|------------------------------------------|-------------|
+| ID do Usuário      | Identificador único do usuário           | Sim         |
 | Usuário            | Nome de usuário para acesso ao sistema   | Sim         |
 | Senha              | Senha de autenticação do usuário         | Sim         |
 | Email              | Email válido do solicitante              | Sim         |
@@ -44,7 +45,7 @@ Registrar solicitação vinculada ao solicitante, contendo tipo/categoria, descr
 | ID da Categoria   | Categoria do tipo de solicitação                                    | Sim         |
 
 
-- RF03 – Prioridade Automática
+## RF03 – Prioridade Automática
 Definir regra objetiva para cálculo automático de prioridade (Baixa/Média/Alta) e armazenar no banco.
 
 Tabela Prioridade
@@ -61,6 +62,6 @@ Tabela Categoria
 | Nome            | Nome da categoria da solicitação (Hardware, Software, Rede, etc.) | Sim         |
 | Valor           | Valor de 0 a 5 para calcular o peso                               | Sim         |
 
-- RF04 – Acompanhamento e Consultas
+## RF04 – Acompanhamento e Consultas
 Permitir atualizar status (Aberta/Em andamento/Fechada) e realizar consultas e
 estatísticas básicas.
