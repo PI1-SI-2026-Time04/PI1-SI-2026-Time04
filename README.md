@@ -52,14 +52,14 @@ Tabela Prioridade
 | ---------------- | -------------------------------------------------------- | ----------- |
 | ID da Prioridade | Identificador único da prioridade                        | Sim         |
 | Nome             | Nome da prioridade (Baixa, Média, Alta, Crítica)         | Sim         |
-| Valor            | Valor numérico de 0 a 5 usado para cálculo de prioridade | Sim         |
+| Valor            | Valor de 0 a 5 para calcular o peso                      | Sim         |
 
 Tabela Categoria
 | Campo           | Descrição                                                         | Obrigatório |
 | --------------- | ----------------------------------------------------------------- | ----------- |
 | ID da Categoria | Identificador único da categoria                                  | Sim         |
 | Nome            | Nome da categoria da solicitação (Hardware, Software, Rede, etc.) | Sim         |
-| Valor           | Valor de peso de 0 a 5 utilizado no cálculo da prioridade         | Sim         |
+| Valor           | Valor de 0 a 5 para calcular o peso                               | Sim         |
 
 - RF04 – Acompanhamento e Consultas
 Permitir atualizar status (Aberta/Em andamento/Fechada) e realizar consultas e
