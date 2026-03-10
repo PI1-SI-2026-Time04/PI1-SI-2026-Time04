@@ -30,11 +30,37 @@ Cadastrar e listar solicitantes com validação básica de dados.
 | Data de Nascimento | Data de nascimento do solicitante        | Não         |
   
 - RF02 – Abertura de Solicitação
-Registrar solicitação vinculada ao solicitante, contendo tipo/categoria, descrição, data/hora
-e status inicial.
+Registrar solicitação vinculada ao solicitante, contendo tipo/categoria, descrição, data/hora e status inicial.
+
+| Campo             | Descrição                                                           | Obrigatório |
+| ----------------- | ------------------------------------------------------------------- | ----------- |
+| ID da Solicitação | Identificador único da solicitação                                  | Sim         |
+| Título            | Título resumido da solicitação                                      | Sim         |
+| Descrição         | Descrição detalhada do problema ou solicitação                      | Sim         |
+| Data de Abertura  | Data e hora em que a solicitação foi registrada                     | Sim         |
+| Status            | Situação atual da solicitação (ex: Aberto, Em andamento, Concluído) | Sim         |
+| ID do Solicitante | Identificação do solicitante que abriu a solicitação                | Sim         |
+| ID da Prioridade  | Prioridade atribuída à solicitação                                  | Sim         |
+| ID da Categoria   | Categoria do tipo de solicitação                                    | Sim         |
+
+
 - RF03 – Prioridade Automática
-Definir regra objetiva para cálculo automático de prioridade (Baixa/Média/Alta) e
-armazenar no banco.
+Definir regra objetiva para cálculo automático de prioridade (Baixa/Média/Alta) e armazenar no banco.
+
+Tabela Prioridade
+| Campo            | Descrição                                                | Obrigatório |
+| ---------------- | -------------------------------------------------------- | ----------- |
+| ID da Prioridade | Identificador único da prioridade                        | Sim         |
+| Nome             | Nome da prioridade (Baixa, Média, Alta, Crítica)         | Sim         |
+| Valor            | Valor numérico de 0 a 5 usado para cálculo de prioridade | Sim         |
+
+Tabela Categoria
+| Campo           | Descrição                                                         | Obrigatório |
+| --------------- | ----------------------------------------------------------------- | ----------- |
+| ID da Categoria | Identificador único da categoria                                  | Sim         |
+| Nome            | Nome da categoria da solicitação (Hardware, Software, Rede, etc.) | Sim         |
+| Valor           | Valor de peso de 0 a 5 utilizado no cálculo da prioridade         | Sim         |
+
 - RF04 – Acompanhamento e Consultas
 Permitir atualizar status (Aberta/Em andamento/Fechada) e realizar consultas e
 estatísticas básicas.
