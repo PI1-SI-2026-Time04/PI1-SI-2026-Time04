@@ -17,7 +17,7 @@ Projetinho de Python
 
 # Requisitos
 
-- RF01 – Cadastro de Solicitante
+## RF01 – Cadastro de Solicitante
 Cadastrar e listar solicitantes com validação básica de dados.
 
 | Campo               | Descrição                              | Obrigatório |
