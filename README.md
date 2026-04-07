@@ -94,7 +94,22 @@ Registrar solicitação vinculada ao solicitante, contendo tipo/categoria, descr
 - O sistema retorna ao menu de **"Acompanhamento e Consultas"**.
 
 ## RF03 –  Prioridade Automática
-Definir regra objetiva para cálculo automático de prioridade (Baixa/Média/Alta) e armazenar no banco.
+A prioridade é calculada somando os valores de urgência e impacto.
+Fórmula: Prioridade = Urgência + Impacto
+| Resultado | Classificação |
+|----------|--------------|
+| 2 e 3   | Baixa        |
+| 4 e 5   | Média        |
+| 6        | Alta         |
+
+| Campo         | Tipo         | Descrição                                                     | Obrigatório |
+|--------------|--------------|---------------------------------------------------------------|------------|
+| id           | INT          | Identificador único do registro (PK com Auto Incremento).     | Sim        |
+| urgencia     | INT          | Nível de urgência (escala de 1 a 3).                          | Sim        |
+| impacto      | INT          | Nível de impacto (escala de 1 a 3).                           | Sim        |
+| resultado    | INT          | Resultado do cálculo (urgência + impacto).                    | Sim        |
+| classificacao| VARCHAR(20)  | Classificação da prioridade (Baixa, Média, Alta).             | Sim        |
+
 
 ## RF04 – Acompanhamento e Consultas
 Permitir atualizar status (Aberta/Em andamento/Fechada) e realizar consultas e estatísticas básicas.
