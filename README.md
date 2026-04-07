@@ -50,6 +50,49 @@ Registrar solicitação vinculada ao solicitante, contendo tipo/categoria, descr
 | status          | VARCHAR(20)  | Status atual (Inicia como 'Aberta').                                    | Sim         |
 | data_abertura   | DATETIME     | Registro automático de data e hora no momento da criação.                | Sim         |
 
+# Fluxo de "Acompanhamento e Consultas"
+
+## Fluxo Principal
+- O usuário acessa o menu principal.
+- O usuário escolhe a opção **"Acompanhamento e Consultas"**.
+
+## Fluxo de Consulta e Listagem
+- O usuário escolhe a opção **"Consultar solicitações"**.
+- O sistema oferece as opções de filtro:
+  - Por Status
+  - Por Prioridade
+  - Por Usuário
+- O sistema executa a query no MySQL com base no filtro escolhido.
+- O sistema exibe uma lista organizada contendo:
+  - ID Solicitante
+  - Categoria
+  - Prioridade
+  - Status
+  - Data
+- O sistema retorna ao menu de **"Acompanhamento e Consultas"**.
+
+## Fluxo de Atualização de Status
+- O usuário escolhe a opção **"Atualizar Status"**.
+- O usuário informa o ID da solicitação que deseja alterar.
+- O sistema apresenta a lista de opções:
+  - 1 - Aberta
+  - 2 - Em andamento
+  - 3 - Fechada
+- O usuário escolhe uma opção.
+- O sistema valida a transição (não permitir alterar solicitações fechadas).
+- O novo status é atualizado no banco de dados.
+- O sistema exibe a mensagem de confirmação:
+  - *Status atualizado com sucesso*.
+- O sistema retorna ao menu de **"Acompanhamento e Consultas"**.
+
+## Fluxo de Estatísticas Básicas
+- O usuário escolhe a opção **"Ver estatísticas"**.
+- O sistema realiza a contagem de registros por status e prioridade.
+- O sistema exibe:
+  - Total de solicitações por Status
+  - Total de solicitações por Prioridade
+- O sistema retorna ao menu de **"Acompanhamento e Consultas"**.
+
 ## RF03 –  Prioridade Automática
 Definir regra objetiva para cálculo automático de prioridade (Baixa/Média/Alta) e armazenar no banco.
 
