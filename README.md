@@ -50,6 +50,27 @@ Registrar solicitação vinculada ao solicitante, contendo tipo/categoria, descr
 | status          | VARCHAR(20)  | Status atual (Inicia como 'Aberta').                                    | Sim         |
 | data_abertura   | DATETIME     | Registro automático de data e hora no momento da criação.                | Sim         |
 
+## RF03 –  Prioridade Automática
+A prioridade é calculada somando os valores de urgência e impacto.
+Fórmula: Prioridade = Urgência + Impacto
+| Resultado | Classificação |
+|----------|--------------|
+| 2 e 3   | Baixa        |
+| 4 e 5   | Média        |
+| 6        | Alta         |
+
+| Campo         | Tipo         | Descrição                                                     | Obrigatório |
+|--------------|--------------|---------------------------------------------------------------|------------|
+| id           | INT          | Identificador único do registro (PK com Auto Incremento).     | Sim        |
+| urgencia     | INT          | Nível de urgência (escala de 1 a 3).                          | Sim        |
+| impacto      | INT          | Nível de impacto (escala de 1 a 3).                           | Sim        |
+| resultado    | INT          | Resultado do cálculo (urgência + impacto).                    | Sim        |
+| classificacao| VARCHAR(20)  | Classificação da prioridade (Baixa, Média, Alta).             | Sim        |
+
+
+## RF04 – Acompanhamento e Consultas
+Permitir atualizar status (Aberta/Em andamento/Fechada) e realizar consultas e estatísticas básicas.
+
 # Fluxo de "Acompanhamento e Consultas"
 
 ## Fluxo Principal
@@ -92,24 +113,3 @@ Registrar solicitação vinculada ao solicitante, contendo tipo/categoria, descr
   - Total de solicitações por Status
   - Total de solicitações por Prioridade
 - O sistema retorna ao menu de **"Acompanhamento e Consultas"**.
-
-## RF03 –  Prioridade Automática
-A prioridade é calculada somando os valores de urgência e impacto.
-Fórmula: Prioridade = Urgência + Impacto
-| Resultado | Classificação |
-|----------|--------------|
-| 2 e 3   | Baixa        |
-| 4 e 5   | Média        |
-| 6        | Alta         |
-
-| Campo         | Tipo         | Descrição                                                     | Obrigatório |
-|--------------|--------------|---------------------------------------------------------------|------------|
-| id           | INT          | Identificador único do registro (PK com Auto Incremento).     | Sim        |
-| urgencia     | INT          | Nível de urgência (escala de 1 a 3).                          | Sim        |
-| impacto      | INT          | Nível de impacto (escala de 1 a 3).                           | Sim        |
-| resultado    | INT          | Resultado do cálculo (urgência + impacto).                    | Sim        |
-| classificacao| VARCHAR(20)  | Classificação da prioridade (Baixa, Média, Alta).             | Sim        |
-
-
-## RF04 – Acompanhamento e Consultas
-Permitir atualizar status (Aberta/Em andamento/Fechada) e realizar consultas e estatísticas básicas.
