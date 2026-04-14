@@ -1,5 +1,5 @@
-CREATE DATABASE scsc;
-USE scsc;
+CREATE DATABASE projetointegrador;
+USE projetointegrador;
 
 CREATE TABLE solicitante (
     id_usuario INT AUTO_INCREMENT NOT NULL, 
