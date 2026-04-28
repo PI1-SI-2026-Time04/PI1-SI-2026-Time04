@@ -43,3 +43,68 @@ Fórmula: Prioridade = Urgência + Impacto
 
 ## RF04 – Acompanhamento e Consultas
 Permitir atualizar status (Aberta/Em andamento/Fechada) e realizar consultas e estatísticas básicas.
+
+---
+
+# 4. Estrutura de Dados
+
+O banco de dados utilizado é o **MySQL**, composto por três tabelas principais:
+
+- `solicitantes`
+- `solicitacoes`
+- `log_prioridade`
+
+---
+
+## Tabela: solicitantes
+
+Armazena os dados dos solicitantes.
+
+| Campo       | Tipo         | Restrições          |
+|------------|-------------|---------------------|
+| id_usuario | INT         | PK, AUTO_INCREMENT  |
+| nome       | VARCHAR(100)| NOT NULL            |
+| email      | VARCHAR(100)| NOT NULL, UNIQUE    |
+| celular    | VARCHAR(20) | NOT NULL            |
+
+---
+
+## Tabela: solicitacoes
+
+Armazena as solicitações registradas.
+
+| Campo           | Tipo         | Restrições                 |
+|-----------------|-------------|----------------------------|
+| id_solicitacao  | INT         | PK, AUTO_INCREMENT         |
+| id_usuario      | INT         | FK                         |
+| categoria       | VARCHAR(50) | NOT NULL                   |
+| descricao       | TEXT        | NOT NULL                   |
+| urgencia        | INT         | CHECK (1 a 3)              |
+| impacto         | INT         | CHECK (1 a 3)              |
+| prioridade      | VARCHAR(20) | NOT NULL                   |
+| status          | VARCHAR(20) | DEFAULT 'Aberta'           |
+| data_abertura   | DATETIME    | DEFAULT CURRENT_TIMESTAMP  |
+
+**Relacionamento:**
+- `id_usuario` referencia `solicitantes(id_usuario)`
+- Exclusão em cascata (`ON DELETE CASCADE`)
+
+---
+
+## Tabela: log_prioridade
+
+Registra o histórico do cálculo de prioridade.
+
+| Campo           | Tipo         | Restrições                 |
+|-----------------|-------------|----------------------------|
+| id_log          | INT         | PK, AUTO_INCREMENT         |
+| id_solicitacao  | INT         | FK                         |
+| urgencia        | INT         | NOT NULL                   |
+| impacto         | INT         | NOT NULL                   |
+| resultado       | INT         | NOT NULL                   |
+| classificacao   | VARCHAR(20) | NOT NULL                   |
+| data_registro   | DATETIME    | DEFAULT CURRENT_TIMESTAMP  |
+
+**Relacionamento:**
+- `id_solicitacao` referencia `solicitacoes(id_solicitacao)`
+- Exclusão em cascata (`ON DELETE CASCADE`)
