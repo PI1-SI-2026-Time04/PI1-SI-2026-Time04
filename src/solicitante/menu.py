@@ -1,14 +1,14 @@
-from solicitante.cadastro import cadastro_solicitante
-from solicitante.consultar import consultar_solicitante
-from solicitante.editar import editar_solicitante
-from solicitante.excluir import excluir_solicitante
+from src.solicitante.cadastro import cadastro_solicitante
+from src.solicitante.consultar import consultar_solicitante
+from src.solicitante.editar import editar_solicitante
+from src.solicitante.excluir import excluir_solicitante
 
 def menu_solicitante():
     print("\n--- Menu Solicitante ---")
-    print("1: Cadastrar")
+    print("1: Cadastrar um novo solicitante")
     print("2: Consultar solicitantes")
-    print("3: Editar")
-    print("4: Excluir")
+    print("3: Editar solicitante")
+    print("4: Excluir solicitante")
     print("5: Sair")
 
 def opcoes_solicitante():

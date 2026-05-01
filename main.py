@@ -1,4 +1,6 @@
-from solicitante.menu import opcoes_solicitante
+from src.solicitante.menu import opcoes_solicitante
+from src.solicitacao.menu import opcoes_solicitacao
+from src.consultas.menu import opcoes_consultas
 
 def menu_principal():
     print("\n=== Sistema de Controle de Solicitações Corporativas ===")
@@ -19,9 +21,9 @@ def opcoes():
             if opcao == 1:
                 opcoes_solicitante()
             elif opcao == 2:
-                print("Em desenvolvimento...")
+                opcoes_solicitacao()
             elif opcao == 3:
-                print("Em desenvolvimento...")
+                opcoes_consultas()
             elif opcao == 4:
                 print("Saindo...")
                 continuar = False
