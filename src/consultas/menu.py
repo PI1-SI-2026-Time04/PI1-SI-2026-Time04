@@ -1,30 +1,28 @@
-from src.solicitacao.abrir import abrir_solicitacao
+from src.solicitante.consultar import consultar_solicitante
 
-def menu_solicitacao():
-    print("\n--- Menu Solicitação ---")
-    print("1: Abrir uma nova solicitação")
-    print("2: Consultar solicitações")
-    print("3: Editar status de uma solicitação")
-    print("4: Sair")
+def menu_consultas():
+    print("\n--- Menu Consultas ---")
+    print("1: Listar solicitantes")
+    print("2: Listar solicitações")
+    print("3: Sair")
 
-def opcoes_solicitacao():
+def opcoes_consultas():
     continuar = True
     
     while continuar:
-        menu_solicitacao()
+        menu_consultas()
         try:
             opcao = int(input("\nDigite o número da opção desejada: "))
         except ValueError:
             print("Digite um número")
         else:
             if opcao == 1:
-                abrir_solicitacao()
+                consultar_solicitante()
             elif opcao == 2:
-                print("2")
+                print("Opção não implementada (Tarefa da Anita)")
             elif opcao == 3:
-                print("3")
-            elif opcao == 4:
                 print("Saindo...")
                 continuar = False
             else:
                 print("Número fora do escopo de opções.")
+
