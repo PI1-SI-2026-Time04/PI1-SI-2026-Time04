@@ -11,7 +11,7 @@ CREATE TABLE solicitantes (
 CREATE TABLE solicitacoes (
     id_solicitacao INT AUTO_INCREMENT PRIMARY KEY,
     id_usuario INT NOT NULL,
-    categoria VARCHAR(50) NOT NULL,
+    categoria INT NOT NULL,
     descricao TEXT NOT NULL,
     urgencia INT NOT NULL CHECK (urgencia BETWEEN 1 AND 3),
     impacto INT NOT NULL CHECK (impacto BETWEEN 1 AND 3),

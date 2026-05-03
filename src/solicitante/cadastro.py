@@ -3,7 +3,7 @@ from database_config import obtem_conexao
 
 
 def cadastro_solicitante():
-    print("--- Cadastro de Solicitante ---")
+    print("\n--- Cadastro de Solicitante ---")
 
     # Validando nome
     continuar_pedindo_nome = True
@@ -49,7 +49,7 @@ def cadastro_solicitante():
         cursor.execute(sql, valores)  # perceba que eu estou passando como parâmetro as 2 váriaveis acima
         conexao.commit()
 
-        print("\nRegistro inserido com sucesso")
+        print("\nSolicitante cadastrado com sucesso")
 
 
     except mysql.connector.Error as erro:
