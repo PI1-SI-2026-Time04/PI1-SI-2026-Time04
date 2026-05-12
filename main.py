@@ -30,4 +30,6 @@ def opcoes():
             else:
                 print("Número fora do escopo de opções.")
 
-opcoes()
+
+if __name__ == "__main__":
+    opcoes()
