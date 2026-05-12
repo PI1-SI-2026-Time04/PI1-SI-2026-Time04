@@ -1,4 +1,5 @@
 from src.solicitacao.abrir import abrir_solicitacao
+from src.solicitacao.editar import editar_status_solicitacao
 from src.solicitacao.opcoes_consulta import opcoes_consultas_solicitacoes
 
 def menu_solicitacao():
@@ -22,7 +23,7 @@ def opcoes_solicitacao():
             elif opcao == 2:
                 opcoes_consultas_solicitacoes()
             elif opcao == 3:
-                print("3")
+                editar_status_solicitacao()
             elif opcao == 4:
                 print("Saindo...")
                 continuar = False
