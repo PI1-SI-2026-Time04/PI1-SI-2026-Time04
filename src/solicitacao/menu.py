@@ -1,4 +1,5 @@
 from src.solicitacao.abrir import abrir_solicitacao
+from src.solicitacao.opcoes_consulta import opcoes_consultas_solicitacoes
 
 def menu_solicitacao():
     print("\n--- Menu Solicitação ---")
@@ -9,7 +10,6 @@ def menu_solicitacao():
 
 def opcoes_solicitacao():
     continuar = True
-    
     while continuar:
         menu_solicitacao()
         try:
@@ -20,7 +20,7 @@ def opcoes_solicitacao():
             if opcao == 1:
                 abrir_solicitacao()
             elif opcao == 2:
-                print("2")
+                opcoes_consultas_solicitacoes()
             elif opcao == 3:
                 print("3")
             elif opcao == 4:

@@ -1,4 +1,5 @@
 from src.solicitante.consultar import consultar_solicitante
+from src.solicitacao.consultas.consultar import consultar_solicitacao
 
 def menu_consultas():
     print("\n--- Menu Consultas ---")
@@ -8,7 +9,6 @@ def menu_consultas():
 
 def opcoes_consultas():
     continuar = True
-    
     while continuar:
         menu_consultas()
         try:
@@ -19,7 +19,7 @@ def opcoes_consultas():
             if opcao == 1:
                 consultar_solicitante()
             elif opcao == 2:
-                print("Opção não implementada (Tarefa da Anita)")
+                consultar_solicitacao()
             elif opcao == 3:
                 print("Saindo...")
                 continuar = False

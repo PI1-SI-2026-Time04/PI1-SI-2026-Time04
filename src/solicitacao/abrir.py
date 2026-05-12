@@ -5,13 +5,29 @@ def abrir_solicitacao():
     print("\n--- Abertura de Solicitação ---")
 
     continuar_pedindo_id = True
+
     while continuar_pedindo_id:
         try:
-            id_busca = int(input("Digite o ID do solicitante relacionado a solicitação: "))
+            id_busca = int(input("Digite o ID do solicitante relacionado à solicitação: "))
+
         except ValueError:
             print("Digite um número.")
+
         else:
-            continuar_pedindo_id = False
+            conexao = obtem_conexao()
+            cursor = conexao.cursor()
+
+            # verifica se o id do solicitante existe
+            sql_verifica = "SELECT * FROM solicitantes WHERE id_usuario = %s"
+            cursor.execute(sql_verifica, (id_busca,))
+
+            resultado = cursor.fetchone()
+
+            if not resultado:
+                print("O ID que você inseriu não existe. Tente novamente.")
+            else:
+                continuar_pedindo_id = False
+                print("ID encontrado com sucesso!")
     
 
     # Validando categoria
