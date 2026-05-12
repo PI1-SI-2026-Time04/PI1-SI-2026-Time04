@@ -1,5 +1,6 @@
 import mysql.connector
 from database_config import obtem_conexao
+from email_validator import validate_email, EmailNotValidError
 
 
 def cadastro_solicitante():
@@ -17,8 +18,40 @@ def cadastro_solicitante():
 
     # -------------------------=========================------------------------ #
 
-    # precisamos validar o email
-    email = input("Digite o email: ")
+    continuar_pedindo_email = True
+
+    while continuar_pedindo_email:
+        email = input("Digite o email: ")
+
+        try:
+            # valida formato do email
+            email_validado = validate_email(
+                email,
+                check_deliverability=False # estou dizendo para validar apenas o formato do email, sem considerar se o domínio realmente existe
+            )
+
+            # pega email normalizado
+            email = email_validado.email
+
+            conexao = obtem_conexao()
+            cursor = conexao.cursor()
+
+            # verifica se email já existe
+            sql_verifica = "SELECT * FROM solicitantes WHERE email = %s"
+            cursor.execute(sql_verifica, (email,))
+
+            resultado = cursor.fetchone()
+
+            if resultado:
+                print("Este e-mail já está cadastrado. Tente novamente.")
+            else:
+                continuar_pedindo_email = False
+
+        except EmailNotValidError as erro:
+            print(f"Email inválido: {erro}")
+
+        except mysql.connector.Error as erro:
+            print(f"Erro ao verificar email: {erro}")
 
     # -------------------------=========================------------------------ #
 
