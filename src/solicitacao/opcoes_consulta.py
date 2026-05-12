@@ -1,0 +1,35 @@
+from src.solicitacao.consultas.consultar import consultar_solicitacao
+
+
+def menu_consultas_solicitacoes():
+    print("\n--- Consultar Solicitações ---")
+    print("1: Consultar todas as solicitações")
+    print("2: Consultar por status")
+    print("3: Consultar por prioridade")
+    print("4: Consultar por solicitante")
+    print("5: Sair")
+
+def opcoes_consultas_solicitacoes():
+    continuar = True
+
+    while continuar:
+        menu_consultas_solicitacoes()
+        
+        try:
+            opcao = int(input("Digite o número da opção desejada: "))
+        except ValueError:
+            print("Digite um número")
+        else:
+            if opcao == 1:
+                consultar_solicitacao()
+            elif opcao == 2:
+                print("Consulta por status: em desenvolvimento.")
+            elif opcao == 3:
+                print("Consulta por prioridade: em desenvolvimento.")
+            elif opcao == 4:
+                print("Consulta por solicitante: em desenvolvimento.")
+            elif opcao == 5:
+                print("Saindo...")
+                continuar = False
+            else:
+                print("Número fora do escopo de opções.")
