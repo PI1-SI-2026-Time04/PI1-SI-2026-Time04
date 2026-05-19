@@ -1,11 +1,11 @@
-from src.solicitante.consultar import consultar_solicitante
-from src.solicitacao.opcoes_consulta import opcoes_consultas_solicitacoes
+# puxem os imports aqui das funções de vocês
 
 def menu_consultas():
-    print("\n--- Menu Consultas ---")
-    print("1: Listar solicitantes")
-    print("2: Listar solicitações")
-    print("3: Sair")
+    print("\n--- Estatísticas ---")
+    print("1: Total de solicitações")
+    print("2: Total de solicitações por status")
+    print("3: Total de solicitações por prioridade")
+    print("4: Sair")
 
 def opcoes_consultas():
     continuar = True
@@ -17,10 +17,12 @@ def opcoes_consultas():
             print("Digite um número")
         else:
             if opcao == 1:
-                consultar_solicitante()
+                print("Tarefa da Maria")
             elif opcao == 2:
-                opcoes_consultas_solicitacoes()
+                print("Tarefa da Anita")
             elif opcao == 3:
+                print("Tarefa da Miguel")
+            elif opcao == 4:
                 print("Saindo...")
                 continuar = False
             else:
