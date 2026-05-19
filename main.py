@@ -6,7 +6,7 @@ def menu_principal():
     print("\n=== Sistema de Controle de Solicitações Corporativas ===")
     print("1: Menu Solicitante")
     print("2: Menu Solicitação")
-    print("3: Menu Acompanhamento e Consultas")
+    print("3: Menu Estatísticas")
     print("4: Sair")
 
 def opcoes():

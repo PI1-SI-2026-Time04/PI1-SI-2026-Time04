@@ -46,7 +46,3 @@ Data: {row[5]}
 
     except Exception as e:
         print("Erro ao consultar:", e)
-
-    finally:
-        cursor.close()
-        conexao.close()
