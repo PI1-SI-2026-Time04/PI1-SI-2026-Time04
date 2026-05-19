@@ -1,5 +1,5 @@
 from src.solicitante.consultar import consultar_solicitante
-from src.solicitacao.consultas.consultar import consultar_solicitacao
+from src.solicitacao.opcoes_consulta import opcoes_consultas_solicitacoes
 
 def menu_consultas():
     print("\n--- Menu Consultas ---")
@@ -19,7 +19,7 @@ def opcoes_consultas():
             if opcao == 1:
                 consultar_solicitante()
             elif opcao == 2:
-                consultar_solicitacao()
+                opcoes_consultas_solicitacoes()
             elif opcao == 3:
                 print("Saindo...")
                 continuar = False

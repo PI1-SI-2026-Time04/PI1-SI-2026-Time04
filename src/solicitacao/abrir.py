@@ -17,7 +17,6 @@ def abrir_solicitacao():
             conexao = obtem_conexao()
             cursor = conexao.cursor()
 
-            # verifica se o id do solicitante existe
             sql_verifica = "SELECT * FROM solicitantes WHERE id_usuario = %s"
             cursor.execute(sql_verifica, (id_busca,))
 
@@ -28,10 +27,10 @@ def abrir_solicitacao():
             else:
                 continuar_pedindo_id = False
                 print("ID encontrado com sucesso!")
-    
 
-    # Validando categoria
+    # Categoria
     continuar_pedindo_categoria = True
+
     while continuar_pedindo_categoria:
         print("\n--- Categoria da Solicitação ---")
         print("1: Suporte de TI")
@@ -42,94 +41,113 @@ def abrir_solicitacao():
 
         try:
             categoria = int(input("Digite o número da categoria: "))
+
         except ValueError:
             print("Digite um número.")
+
         else:
             if categoria in (1, 2, 3, 4, 5):
                 continuar_pedindo_categoria = False
             else:
                 print("Número fora do escopo. Tente novamente")
 
-    # Validando descrição
+    # Descrição
     continuar_pedindo_descricao = True
+
     while continuar_pedindo_descricao:
         descricao = input("\nDescreva a solicitação: ")
 
         if descricao == "":
-            print("A descrição não pode ser vazia. ")
+            print("A descrição não pode ser vazia.")
+
         elif len(descricao) < 10:
             print("Descreva melhor o problema.")
+
         else:
             continuar_pedindo_descricao = False
 
-    # Validando urgência
+    # Urgência
     continuar_pedindo_urgencia = True
+
     while continuar_pedindo_urgencia:
         print("\n--- Urgência ---")
-        print("1 - Baixa (Pode aguardar)")
-        print("2 - Média (Requer atenção em breve)")
-        print("3 - Alta (Resolução imediata)\n")
+        print("1 - Baixa")
+        print("2 - Média")
+        print("3 - Alta\n")
+
         try:
             urgencia = int(input("Digite o número da opção: "))
+
         except ValueError:
             print("Digite um número")
+
         else:
             if urgencia in (1, 2, 3):
-                continuar_pedindo_urgencia = False 
+                continuar_pedindo_urgencia = False
             else:
                 print("Número fora do escopo. Tente novamente")
 
-    # Validando impacto
+    # Impacto
     continuar_pedindo_impacto = True
+
     while continuar_pedindo_impacto:
         print("\n--- Impacto ---")
-        print("1 - Pequeno (Apenas um usuário/tarefa)")
-        print("2 - Moderado (Um setor ou processo importante)")
-        print("3 - Grande (Toda a empresa ou serviço crítico)\n")
+        print("1 - Pequeno")
+        print("2 - Moderado")
+        print("3 - Grande\n")
+
         try:
             impacto = int(input("Digite o número da opção: "))
+
         except ValueError:
             print("Digite um número")
+
         else:
             if impacto in (1, 2, 3):
                 continuar_pedindo_impacto = False
             else:
                 print("Número fora do escopo. Tente novamente")
 
+    # =========================
+    # Cálculo da prioridade automática
+    # =========================
+
+    soma = urgencia + impacto
+
+    if soma <= 2:
+        prioridade = "Baixa"
+
+    elif soma <= 4:
+        prioridade = "Média"
+
+    else:
+        prioridade = "Alta"
+
+    print(f"\nPrioridade definida automaticamente: {prioridade}")
+
     try:
         conexao = obtem_conexao()
         cursor = conexao.cursor()
 
-        sql = "SELECT * FROM solicitantes WHERE id_usuario = %s"
-        valor = (id_busca,)
+        sql = """
+        INSERT INTO solicitacoes
+        (id_usuario, categoria, descricao, urgencia, impacto, prioridade)
+        VALUES (%s, %s, %s, %s, %s, %s)
+        """
 
-        cursor.execute(sql, valor)
+        valores = (
+            id_busca,
+            categoria,
+            descricao,
+            urgencia,
+            impacto,
+            prioridade
+        )
 
-        resultado = cursor.fetchone()
+        cursor.execute(sql, valores)
+        conexao.commit()
 
-        if resultado is None:
-            print("Solicitante não encontrado")
-        else:
-            # Query para inserir os dados no banco
-            sql = "INSERT INTO solicitacoes (id_usuario, categoria, descricao, urgencia, impacto) VALUES (%s, %s, %s, %s, %s)"
-
-            valores = (id_busca, categoria, descricao, urgencia, impacto)
-
-            # Executando e salvando (commit)
-            cursor.execute(sql, valores)
-            conexao.commit()
-
-            print("\nSolicitação aberta com sucesso")
+        print("\nSolicitação aberta com sucesso!")
 
     except mysql.connector.Error as erro:
         print(f"Falha ao inserir dados: {erro}")
-
-
-        
-
-
-
-
-    
-
-
