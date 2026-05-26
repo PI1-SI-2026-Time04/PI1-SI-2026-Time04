@@ -1,4 +1,5 @@
-# puxem os imports aqui das funções de vocês
+from src.consultas.total_solicitacoes import total_solicitacoes
+
 
 def menu_consultas():
     print("\n--- Estatísticas ---")
@@ -17,7 +18,7 @@ def opcoes_consultas():
             print("Digite um número")
         else:
             if opcao == 1:
-                print("Tarefa da Maria")
+                total_solicitacoes()
             elif opcao == 2:
                 print("Tarefa da Anita")
             elif opcao == 3:
