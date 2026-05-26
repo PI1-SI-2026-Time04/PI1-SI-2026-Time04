@@ -1,15 +1,20 @@
+import os
 import mysql.connector
+from dotenv import load_dotenv
+
+load_dotenv()
 
 
-# substitua as credenciais com o banco que você estiver utilizando
 def obtem_conexao():
     if obtem_conexao.conexao is None:
         obtem_conexao.conexao = mysql.connector.connect(
-            host="localhost",
-            user="root",
-            password="1234",
-            database="scsc_db"
+            host=os.getenv("DB_HOST"),
+            user=os.getenv("DB_USER"),
+            password=os.getenv("DB_PASSWORD"),
+            database=os.getenv("DB_NAME")
         )
+
     return obtem_conexao.conexao
+
 
 obtem_conexao.conexao = None
