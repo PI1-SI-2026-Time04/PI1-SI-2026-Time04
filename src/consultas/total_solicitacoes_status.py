@@ -1,3 +1,4 @@
+import mysql.connector
 from database_config import obtem_conexao
 
 def total_por_status():
@@ -23,5 +24,5 @@ def total_por_status():
         for status, total in resultados:
             print(f"{status}: {total}")
 
-    except ValueError:
-        print("Digite um número válido.")
+    except mysql.connector.Error as erro:
+        print(f"Falha ao consultar dados: {erro}")
