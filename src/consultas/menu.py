@@ -1,9 +1,5 @@
-<<<<<<< Updated upstream
 from src.consultas.total_solicitacoes import total_solicitacoes
-
-=======
 from src.consultas.total_solicitacoes_status import total_por_status
->>>>>>> Stashed changes
 
 def menu_consultas():
     print("\n--- Estatísticas ---")
