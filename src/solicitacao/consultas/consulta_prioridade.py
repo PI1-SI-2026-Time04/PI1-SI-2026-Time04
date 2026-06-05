@@ -1,6 +1,8 @@
+import mysql.connector
 from database_config import obtem_conexao
 
-def listar_por_prioridade():
+
+def consultar_por_prioridade():
     try:
         prioridade = input(
             "Digite a prioridade (Baixa, Média ou Alta): "
@@ -9,14 +11,14 @@ def listar_por_prioridade():
         conexao = obtem_conexao()
         cursor = conexao.cursor()
 
-        query = """
+        sql = """
         SELECT id_solicitacao, categoria, prioridade, status
         FROM solicitacoes
         WHERE prioridade = %s
         ORDER BY data_abertura DESC
         """
 
-        cursor.execute(query, (prioridade,))
+        cursor.execute(sql, (prioridade,))
         resultados = cursor.fetchall()
 
         if not resultados:
@@ -25,14 +27,14 @@ def listar_por_prioridade():
 
         print(f"\n=== Solicitações {prioridade.upper()} ===\n")
 
-        for row in resultados:
+        for linha in resultados:
             print(f"""
-ID: {row[0]}
-Categoria: {row[1]}
-Prioridade: {row[2]}
-Status: {row[3]}
+ID: {linha[0]}
+Categoria: {linha[1]}
+Prioridade: {linha[2]}
+Status: {linha[3]}
 ------------------------
 """)
 
-    except Exception as e:
-        print("Erro:", e)
+    except mysql.connector.Error as erro:
+        print(f"Falha ao consultar por prioridade: {erro}")

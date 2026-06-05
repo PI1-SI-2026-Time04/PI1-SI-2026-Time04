@@ -1,7 +1,7 @@
 from src.solicitacao.consultas.consultar import consultar_solicitacao
-from src.solicitacao.consultas.consulta_prioridade import listar_por_prioridade
-from src.solicitacao.consultas.consulta_status import listar_por_status
-from src.solicitacao.consultas.consulta_solicitante import listar_por_solicitante
+from src.solicitacao.consultas.consulta_prioridade import consultar_por_prioridade
+from src.solicitacao.consultas.consulta_status import consultar_por_status
+from src.solicitacao.consultas.consulta_solicitante import consultar_por_solicitante
 
 def menu_consultas_solicitacoes():
     print("\n--- Consultar Solicitações ---")
@@ -25,11 +25,11 @@ def opcoes_consultas_solicitacoes():
             if opcao == 1:
                 consultar_solicitacao()
             elif opcao == 2:
-                listar_por_status()
+                consultar_por_status()
             elif opcao == 3:
-                listar_por_prioridade()
+                consultar_por_prioridade()
             elif opcao == 4:
-                listar_por_solicitante()
+                consultar_por_solicitante()
             elif opcao == 5:
                 print("Saindo...")
                 continuar = False

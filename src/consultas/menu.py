@@ -1,6 +1,6 @@
 from src.consultas.total_solicitacoes import total_solicitacoes
-from src.consultas.total_solicitacoes_status import total_por_status
-from src.consultas.total_solicitacoes_prioridade import solicitacoes_por_prioridade
+from src.consultas.total_solicitacoes_status import total_solicitacoes_por_status
+from src.consultas.total_solicitacoes_prioridade import total_solicitacoes_por_prioridade
 
 
 def menu_consultas():
@@ -22,9 +22,9 @@ def opcoes_consultas():
             if opcao == 1:
                 total_solicitacoes()
             elif opcao == 2:
-                total_por_status()
+                total_solicitacoes_por_status()
             elif opcao == 3:
-                solicitacoes_por_prioridade()
+                total_solicitacoes_por_prioridade()
             elif opcao == 4:
                 print("Saindo...")
                 continuar = False

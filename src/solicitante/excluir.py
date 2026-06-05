@@ -8,7 +8,7 @@ def excluir_solicitante():
     continuar_pedindo_id = True
     while continuar_pedindo_id:
         try:
-            id_busca = int(input("Digite o ID do solicitante que deseja excluir: "))
+            id_solicitante = int(input("Digite o ID do solicitante que deseja excluir: "))
         except ValueError:
             print("Digite um número.")
         else:
@@ -19,9 +19,9 @@ def excluir_solicitante():
         cursor = conexao.cursor()
 
         sql = "SELECT * FROM solicitantes WHERE id_usuario = %s"
-        valor = (id_busca,)
+        valores = (id_solicitante,)
 
-        cursor.execute(sql, valor)
+        cursor.execute(sql, valores)
 
         resultado = cursor.fetchone()
 
@@ -41,7 +41,7 @@ def excluir_solicitante():
                 else:
                     continuar_pedindo_confirmacao = False
             if confirmacao == "S":
-                cursor.execute("DELETE FROM solicitantes WHERE id_usuario = %s", valor)
+                cursor.execute("DELETE FROM solicitantes WHERE id_usuario = %s", valores)
                 conexao.commit()
                 print("Solicitante excluído com sucesso.")
             elif confirmacao == "N":

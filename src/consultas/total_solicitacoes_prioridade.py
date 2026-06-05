@@ -1,7 +1,7 @@
 import mysql.connector
 from database_config import obtem_conexao
 
-def solicitacoes_por_prioridade():
+def total_solicitacoes_por_prioridade():
     try:
         conexao = obtem_conexao()
         cursor = conexao.cursor()
@@ -18,7 +18,7 @@ def solicitacoes_por_prioridade():
 
         print("\n--- Total de Solicitações por Prioridade ---")
 
-        if len(resultados) == 0:
+        if not resultados:
             print("Nenhuma solicitação cadastrada.")
 
         else:

@@ -9,7 +9,7 @@ def menu_principal():
     print("3: Menu Estatísticas")
     print("4: Sair")
 
-def opcoes():
+def opcoes_principal():
     continuar = True
     while continuar:
         menu_principal()
@@ -32,4 +32,4 @@ def opcoes():
 
 
 if __name__ == "__main__":
-    opcoes()
+    opcoes_principal()

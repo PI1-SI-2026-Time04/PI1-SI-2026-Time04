@@ -18,7 +18,7 @@ def consultar_solicitante():
             print("Nenhum registro encontrado.")
         else:
             for linha in resultados:
-                print(f"ID: {linha[0]} | Nome: {linha[1]} | Email: {linha[2]} | Telefone: {linha[3]}")
+                print(f"ID: {linha[0]} | Nome: {linha[1]} | Email: {linha[2]} | Celular: {linha[3]}")
 
     except mysql.connector.Error as erro:
         print(f"Falha ao consultar dados: {erro}")

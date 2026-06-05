@@ -8,7 +8,7 @@ def editar_solicitante():
     continuar_pedindo_id = True
     while continuar_pedindo_id:
         try:
-            id_busca = int(input("Digite o ID do solicitante que deseja editar: "))
+            id_solicitante = int(input("Digite o ID do solicitante que deseja editar: "))
         except ValueError:
             print("Digite um número.")
         else:
@@ -19,9 +19,9 @@ def editar_solicitante():
         cursor = conexao.cursor()
 
         sql = "SELECT * FROM solicitantes WHERE id_usuario = %s"
-        valor = (id_busca,)
+        valores = (id_solicitante,)
 
-        cursor.execute(sql, valor)
+        cursor.execute(sql, valores)
 
         resultado = cursor.fetchone()
 
@@ -35,7 +35,7 @@ def editar_solicitante():
                 print("Qual campo deseja alterar? ")
                 print("1: Nome")
                 print("2: E-mail")
-                print("3: Telefone")
+                print("3: Celular")
                 print("4: Sair\n")
 
                 try:
@@ -43,7 +43,6 @@ def editar_solicitante():
                 except ValueError:
                     print("Digite um número.")
                 else:
-                    # alterar nome
                     if opcao_desejada == 1:
                         continuar_pedindo_nome = True
 
@@ -59,13 +58,11 @@ def editar_solicitante():
                             UPDATE solicitantes
                             SET nome = %s
                             WHERE id_usuario = %s
-                        """, (novo_nome, id_busca))
+                        """, (novo_nome, id_solicitante))
 
                         conexao.commit()
                         print("Nome atualizado com sucesso!\n")
 
-
-                    # alterar e-mail (precisamos validar o e-mail)
                     elif opcao_desejada == 2:
                         novo_email = input("Digite o novo e-mail: ")
 
@@ -73,31 +70,29 @@ def editar_solicitante():
                             UPDATE solicitantes
                             SET email = %s
                             WHERE id_usuario = %s
-                        """, (novo_email, id_busca))
+                        """, (novo_email, id_solicitante))
 
                         conexao.commit()
                         print("E-mail atualizado com sucesso!\n")
 
-                    # alterar número de celular
                     elif opcao_desejada == 3:
                         continuar_pedindo_celular = True
 
                         while continuar_pedindo_celular:
                             novo_celular = input("Digite o novo número de celular: ")
 
-                        if not novo_celular.isdigit():
-                            print("Número de celular inválido. Digite apenas números.")
-                        else:
-                            if len(novo_celular) != 11:
+                            if not novo_celular.isdigit():
+                                print("Número de celular inválido. Digite apenas números.")
+                            elif len(novo_celular) != 11:
                                 print("Número inválido. Um celular deve ter 11 digitos.")
                             else:
                                 continuar_pedindo_celular = False
 
                         cursor.execute("""
-                            UPDATE solicitante
-                            SET telefone = %s
+                            UPDATE solicitantes
+                            SET celular = %s
                             WHERE id_usuario = %s
-                        """, (novo_celular, id_busca))
+                        """, (novo_celular, id_solicitante))
 
                         conexao.commit()
                         print("Número de celular atualizado com sucesso!\n")
