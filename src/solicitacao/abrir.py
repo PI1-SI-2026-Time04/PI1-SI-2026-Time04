@@ -8,7 +8,7 @@ def abrir_solicitacao():
 
     while continuar_pedindo_id:
         try:
-            id_busca = int(input("Digite o ID do solicitante relacionado à solicitação: "))
+            id_solicitante = int(input("Digite o ID do solicitante relacionado à solicitação: "))
 
         except ValueError:
             print("Digite um número.")
@@ -18,7 +18,7 @@ def abrir_solicitacao():
             cursor = conexao.cursor()
 
             sql_verifica = "SELECT * FROM solicitantes WHERE id_usuario = %s"
-            cursor.execute(sql_verifica, (id_busca,))
+            cursor.execute(sql_verifica, (id_solicitante,))
 
             resultado = cursor.fetchone()
 
@@ -136,7 +136,7 @@ def abrir_solicitacao():
         """
 
         valores = (
-            id_busca,
+            id_solicitante,
             categoria,
             descricao,
             urgencia,

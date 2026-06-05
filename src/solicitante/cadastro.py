@@ -86,4 +86,4 @@ def cadastro_solicitante():
 
 
     except mysql.connector.Error as erro:
-        print(f"Falha ao inserir usuário no banco {erro}")
+        print(f"Falha ao inserir solicitante no banco: {erro}")

@@ -33,19 +33,19 @@ def atualizar_status_solicitacao(id_solicitacao, novo_status):
             return
 
         # Atualiza o status
-        query = """
+        sql = """
         UPDATE solicitacoes
         SET status = %s
         WHERE id_solicitacao = %s
         """
 
-        cursor.execute(query, (novo_status, id_solicitacao))
+        cursor.execute(sql, (novo_status, id_solicitacao))
         conexao.commit()
 
         print("Status atualizado com sucesso!")
 
     except mysql.connector.Error as erro:
-        print("Erro ao atualizar status:", erro)
+        print(f"Falha ao atualizar status: {erro}")
 
 
 def editar_status_solicitacao():
@@ -56,7 +56,7 @@ def editar_status_solicitacao():
 
     while continuar_pedindo_id:
         try:
-            id_busca = int(input("Digite o ID da solicitação que deseja editar: "))
+            id_informado = int(input("Digite o ID da solicitação que deseja editar: "))
         except ValueError:
             print("Digite um número.")
         else:
@@ -65,7 +65,7 @@ def editar_status_solicitacao():
                 cursor = conexao.cursor()
                 cursor.execute(
                     "SELECT id_solicitacao, status FROM solicitacoes WHERE id_solicitacao = %s",
-                    (id_busca,),
+                    (id_informado,),
                 )
                 resultado = cursor.fetchone()
 
@@ -81,7 +81,7 @@ def editar_status_solicitacao():
                         )
                     else:
                         continuar_pedindo_id = False
-                        id_solicitacao = id_busca
+                        id_solicitacao = id_informado
             except mysql.connector.Error as erro:
                 print(f"Falha ao consultar dados: {erro}")
 

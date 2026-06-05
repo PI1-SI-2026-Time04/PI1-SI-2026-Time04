@@ -1,18 +1,18 @@
 import mysql.connector
 from database_config import obtem_conexao
 
-def total_por_status():
+def total_solicitacoes_por_status():
     try:
         conexao = obtem_conexao()
         cursor = conexao.cursor()
 
-        query = """
+        sql = """
         SELECT status, COUNT(*)
         FROM solicitacoes
         GROUP BY status
         """
 
-        cursor.execute(query)
+        cursor.execute(sql)
         resultados = cursor.fetchall()
 
         if not resultados:
