@@ -11,7 +11,7 @@ CREATE TABLE solicitantes (
 CREATE TABLE solicitacoes (
     id_solicitacao INT AUTO_INCREMENT PRIMARY KEY,
     id_usuario INT NOT NULL,
-    categoria INT NOT NULL,
+    categoria VARCHAR(50) NOT NULL,
     descricao TEXT NOT NULL,
     urgencia INT NOT NULL CHECK (urgencia BETWEEN 1 AND 3),
     impacto INT NOT NULL CHECK (impacto BETWEEN 1 AND 3),
@@ -19,23 +19,8 @@ CREATE TABLE solicitacoes (
     status VARCHAR(20) NOT NULL DEFAULT 'Aberta',
     data_abertura DATETIME DEFAULT CURRENT_TIMESTAMP,
 
-    CONSTRAINT fk_usuario 
-        FOREIGN KEY (id_usuario) 
-        REFERENCES solicitantes(id_usuario) 
-        ON DELETE CASCADE
-);
-
-CREATE TABLE log_prioridade (
-    id_log INT AUTO_INCREMENT PRIMARY KEY,
-    id_solicitacao INT NOT NULL,
-    urgencia INT NOT NULL,
-    impacto INT NOT NULL,
-    resultado INT NOT NULL,
-    classificacao VARCHAR(20) NOT NULL,
-    data_registro DATETIME DEFAULT CURRENT_TIMESTAMP,
-
-    CONSTRAINT fk_log_solicitacao
-        FOREIGN KEY (id_solicitacao)
-        REFERENCES solicitacoes(id_solicitacao)
+    CONSTRAINT fk_usuario
+        FOREIGN KEY (id_usuario)
+        REFERENCES solicitantes(id_usuario)
         ON DELETE CASCADE
 );

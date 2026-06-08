@@ -1,9 +1,8 @@
-# PI1-SI-2026-Time04
-## Sistema de Controle de Solicitações Corporativas (SCSC)
+# Sistema de Controle de Solicitações Corporativas (SCSC)
 
-O SCSC é um projeto acadêmico que simula a contratação de uma equipe de desenvolvimento para implementar um sistema interno de uma organização/empresa. A empresa vem enfrentando problemas no gerenciamento de demandas internas, devido a falta de padronização das solicitações. Para isso, o SCSC entra como solução, atuando como um sistema que permite registrar solicitações, classificá-las automaticamente por prioridade e acompanhar seu status.
+O SCSC é uma aplicação CLI desenvolvida em Python para o gerenciamento centralizado de demandas internas. O sistema permite o cadastro de solicitantes, a abertura de chamados com classificação automática de prioridade, a atualização de status e a geração de estatísticas operacionais, utilizando MySQL para persistência de dados.
 
-# Integrantes
+## Integrantes
 - Anita Barbosa
 - Ivan Henrique
 - Maria Daon
@@ -11,100 +10,84 @@ O SCSC é um projeto acadêmico que simula a contratação de uma equipe de dese
 
 ---
 
-# 1. Tecnologias Utilizadas
-- **IDE:** PyCharm e VS Code
-- **Linguagem:** Python
-- **Banco de Dados** MySQL
-- **Versionamento**: Git e GitHub
+## 1. Arquitetura do Sistema
+O projeto segue uma estrutura modular para facilitar a manutenção:
+- `main.py`: Ponto de entrada que gerencia o menu principal.
+- `src/solicitante/`: CRUD e gestão de usuários solicitantes.
+- `src/solicitacao/`: Fluxos de abertura, edição e consultas de chamados.
+- `src/consultas/`: Módulo dedicado a estatísticas e métricas de volume.
+- `database_config.py`: Centraliza a configuração e conexão com o banco de dados via variáveis de ambiente.
 
 ---
 
-# 2. Interface 
-- Aplicação em modo texto (CLI - Terminal)
+## 2. Requisitos Funcionais (Documento de Visão)
+
+### 3.1 Identificação de Usuário
+- **Cadastro:** Coleta nome, e-mail e celular (11 dígitos).
+- **Validações:** 
+  - Nome aceita apenas letras e espaços.
+  - E-mail validado por formato (RFC 5322) e unicidade no banco de dados.
+  - Celular validado para conter apenas números e exatamente 11 dígitos.
+- **Consulta/Exclusão:** Permite listar usuários e remover registros (com exclusão em cascata das solicitações vinculadas).
+
+### 3.2 Registro de Solicitação
+- **Vínculo:** Cada chamado deve obrigatoriamente estar associado a um ID de solicitante válido.
+- **Categorias Fixas:** 
+  1. Suporte de TI
+  2. Manutenção Predial
+  3. Suprimentos / Almoxarifado
+  4. Recursos Humanos (RH)
+  5. Serviços Administrativos
+- **Validação de Descrição:** Mínimo de 10 caracteres obrigatórios.
+- **Confirmação:** Ao finalizar, o sistema exibe o ID da solicitação gerado e a prioridade atribuída.
+
+### 3.3 Classificação Automática de Prioridade
+Calculada pela soma dos fatores de **Urgência (1-3)** e **Impacto (1-3)** informados na abertura:
+- **Baixa:** Soma 2 ou 3.
+- **Média:** Soma 4 ou 5.
+- **Alta:** Soma 6.
+
+### 3.4 Atualização de Status
+- **Estados:** Aberta (inicial), Em andamento, Fechada.
+- **Regra de Integridade:** Solicitações com status "Fechada" são bloqueadas para qualquer alteração posterior, garantindo a imutabilidade do histórico final.
+
+### 3.5 Consultas e Listagens
+- **Geral:** Lista todas as solicitações com JOIN para exibir o nome do solicitante e tradução da categoria numérica para texto, ordenada por data decrescente.
+- **Filtros:** Consultas específicas por Status, Prioridade ou Solicitante.
+
+### 3.6 Estatísticas Básicas
+- Relatórios de volume total de chamados.
+- Distribuição quantitativa agrupada por Status e por Prioridade.
 
 ---
 
-# 3. Requisitos Funcionais
-
-## RF01 – Cadastro de Solicitante
-Cadastrar e listar solicitantes com validação básica de dados.
-
-## RF02 – Abertura de Solicitação
-Registrar solicitação vinculada ao solicitante, contendo tipo/categoria, descrição, data/hora e status inicial.
-
-## RF03 –  Prioridade Automática
-A prioridade é calculada somando os valores de urgência e impacto.
-Fórmula: Prioridade = Urgência + Impacto
-| Resultado | Classificação |
-|----------|--------------|
-| 2 e 3   | Baixa        |
-| 4 e 5   | Média        |
-| 6        | Alta         |
-
-## RF04 – Acompanhamento e Consultas
-Permitir atualizar status (Aberta/Em andamento/Fechada) e realizar consultas e estatísticas básicas.
+## 3. Configuração do Banco de Dados
+O sistema utiliza o banco `scsc_db` com as seguintes tabelas:
+- `solicitantes`: `id_usuario`, `nome`, `email`, `celular`.
+- `solicitacoes`: `id_solicitacao`, `id_usuario` (FK), `categoria`, `descricao`, `urgencia`, `impacto`, `prioridade`, `status`, `data_abertura`.
 
 ---
 
-# 4. Estrutura de Dados
+## 4. Instalação e Uso
 
-O banco de dados utilizado é o **MySQL**, composto por três tabelas principais:
+### Requisitos
+- Python 3.10+
+- MySQL Server 8.0+
 
-- `solicitantes`
-- `solicitacoes`
-- `log_prioridade`
-
----
-
-## Tabela: solicitantes
-
-Armazena os dados dos solicitantes.
-
-| Campo       | Tipo         | Restrições          |
-|------------|-------------|---------------------|
-| id_usuario | INT         | PK, AUTO_INCREMENT  |
-| nome       | VARCHAR(100)| NOT NULL            |
-| email      | VARCHAR(100)| NOT NULL, UNIQUE    |
-| celular    | VARCHAR(20) | NOT NULL            |
-
----
-
-## Tabela: solicitacoes
-
-Armazena as solicitações registradas.
-
-| Campo           | Tipo         | Restrições                 |
-|-----------------|-------------|----------------------------|
-| id_solicitacao  | INT         | PK, AUTO_INCREMENT         |
-| id_usuario      | INT         | FK                         |
-| categoria       | VARCHAR(50) | NOT NULL                   |
-| descricao       | TEXT        | NOT NULL                   |
-| urgencia        | INT         | CHECK (1 a 3)              |
-| impacto         | INT         | CHECK (1 a 3)              |
-| prioridade      | VARCHAR(20) | NOT NULL                   |
-| status          | VARCHAR(20) | DEFAULT 'Aberta'           |
-| data_abertura   | DATETIME    | DEFAULT CURRENT_TIMESTAMP  |
-
-**Relacionamento:**
-- `id_usuario` referencia `solicitantes(id_usuario)`
-- Exclusão em cascata (`ON DELETE CASCADE`)
-
----
-
-## Tabela: log_prioridade
-
-Registra o histórico do cálculo de prioridade.
-
-| Campo           | Tipo         | Restrições                 |
-|-----------------|-------------|----------------------------|
-| id_log          | INT         | PK, AUTO_INCREMENT         |
-| id_solicitacao  | INT         | FK                         |
-| urgencia        | INT         | NOT NULL                   |
-| impacto         | INT         | NOT NULL                   |
-| resultado       | INT         | NOT NULL                   |
-| classificacao   | VARCHAR(20) | NOT NULL                   |
-| data_registro   | DATETIME    | DEFAULT CURRENT_TIMESTAMP  |
-
-**Relacionamento:**
-- `id_solicitacao` referencia `solicitacoes(id_solicitacao)`
-- Exclusão em cascata (`ON DELETE CASCADE`)
+### Configuração Inicial
+1. Execute o script `database/scsc.sql` no MySQL.
+2. Crie um arquivo `.env` na raiz com:
+   ```env
+   DB_HOST=localhost
+   DB_USER=seu_usuario
+   DB_PASSWORD=sua_senha
+   DB_NAME=scsc_db
+   ```
+3. Instale as dependências:
+   ```bash
+   pip install -r requirements.txt
+   ```
+4. Inicie o sistema:
+   ```bash
+   python main.py
+   ```
