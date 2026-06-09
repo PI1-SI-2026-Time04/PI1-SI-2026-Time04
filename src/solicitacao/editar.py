@@ -15,6 +15,7 @@ def atualizar_status_solicitacao(id_solicitacao, novo_status):
         resultado = cursor.fetchone()
 
         if not resultado:
+            cursor.close()
             print("Solicitação não encontrada.")
             return
 
@@ -22,6 +23,7 @@ def atualizar_status_solicitacao(id_solicitacao, novo_status):
 
         # regra de integridade
         if status_atual == "Fechada":
+            cursor.close()
             print("Não é possível alterar ou reabrir uma solicitação já fechada.")
             return
 
@@ -29,6 +31,7 @@ def atualizar_status_solicitacao(id_solicitacao, novo_status):
         status_validos = ["Aberta", "Em andamento", "Fechada"]
 
         if novo_status not in status_validos:
+            cursor.close()
             print("Status inválido.")
             return
 
@@ -41,6 +44,7 @@ def atualizar_status_solicitacao(id_solicitacao, novo_status):
 
         cursor.execute(sql, (novo_status, id_solicitacao))
         conexao.commit()
+        cursor.close()
 
         print("Status atualizado com sucesso!")
 
@@ -62,7 +66,7 @@ def editar_status_solicitacao():
         else:
             try:
                 conexao = obtem_conexao()
-                cursor = conexao.cursor()
+                cursor = conexao.cursor(buffered=True)
                 cursor.execute(
                     "SELECT id_solicitacao, status FROM solicitacoes WHERE id_solicitacao = %s",
                     (id_informado,),
@@ -70,6 +74,7 @@ def editar_status_solicitacao():
                 resultado = cursor.fetchone()
 
                 if not resultado:
+                    cursor.close()
                     print("O ID que você inseriu não existe. Tente novamente.")
                 else:
                     status_atual = resultado[1]

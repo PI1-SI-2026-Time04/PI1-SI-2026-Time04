@@ -16,7 +16,7 @@ def editar_solicitante():
 
     try:
         conexao = obtem_conexao()
-        cursor = conexao.cursor()
+        cursor = conexao.cursor(buffered=True)
 
         sql = "SELECT * FROM solicitantes WHERE id_usuario = %s"
         valores = (id_solicitante,)
@@ -25,7 +25,7 @@ def editar_solicitante():
 
         resultado = cursor.fetchone()
 
-        if resultado is None:
+        if not resultado:
             print("Solicitante não encontrado")
         else:
             print("Dados atuais:", resultado, "\n")
@@ -122,6 +122,8 @@ def editar_solicitante():
 
                     else:
                         print("Número fora da opção desejada.")
+
+        cursor.close()
 
     except mysql.connector.Error as erro:
         print(f"Falha ao editar dados: {erro}")

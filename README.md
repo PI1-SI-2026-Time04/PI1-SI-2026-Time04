@@ -20,7 +20,49 @@ O projeto segue uma estrutura modular para facilitar a manutenção:
 
 ---
 
-## 2. Requisitos Funcionais (Documento de Visão)
+## 2. Fluxo de Operação
+
+```mermaid
+flowchart LR
+
+    A([Início]) --> B[Menu Principal]
+
+    B --> C[Solicitantes]
+    B --> D[Solicitações]
+    B --> E[Estatísticas]
+    B --> F([Encerrar])
+
+    %% Solicitantes
+    C --> C1[Cadastrar]
+    C --> C2[Consultar]
+    C --> C3[Editar]
+    C --> C4[Excluir]
+
+    %% Solicitações
+    D --> D1[Abrir Solicitação]
+    D --> D2[Consultar Solicitações]
+    D --> D3[Editar Status]
+
+    D1 --> D11[Calcular Prioridade]
+
+    D2 --> D21[Todas]
+    D2 --> D22[Por Status]
+    D2 --> D23[Por Prioridade]
+    D2 --> D24[Por Solicitante]
+
+    D3 --> D31{Fechada?}
+    D31 -->|Sim| D32[Bloqueado]
+    D31 -->|Não| D33[Atualizar]
+
+    %% Estatísticas
+    E --> E1[Total Geral]
+    E --> E2[Por Status]
+    E --> E3[Por Prioridade]
+```
+
+---
+
+## 3. Requisitos Funcionais (Documento de Visão)
 
 ### 3.1 Identificação de Usuário
 - **Cadastro:** Coleta nome, e-mail e celular (11 dígitos).
@@ -61,14 +103,14 @@ Calculada pela soma dos fatores de **Urgência (1-3)** e **Impacto (1-3)** infor
 
 ---
 
-## 3. Configuração do Banco de Dados
+## 4. Configuração do Banco de Dados
 O sistema utiliza o banco `scsc_db` com as seguintes tabelas:
 - `solicitantes`: `id_usuario`, `nome`, `email`, `celular`.
 - `solicitacoes`: `id_solicitacao`, `id_usuario` (FK), `categoria`, `descricao`, `urgencia`, `impacto`, `prioridade`, `status`, `data_abertura`.
 
 ---
 
-## 4. Instalação e Uso
+## 5. Instalação e Uso
 
 ### Requisitos
 - Python 3.10+

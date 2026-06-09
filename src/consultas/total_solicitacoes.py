@@ -10,6 +10,7 @@ def total_solicitacoes():
         cursor.execute(sql)
 
         resultado = cursor.fetchone()
+        cursor.close()
 
         if not resultado:
             print("Nenhuma solicitação registrada.")

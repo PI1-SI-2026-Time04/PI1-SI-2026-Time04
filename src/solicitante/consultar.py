@@ -13,6 +13,7 @@ def consultar_solicitante():
 
         # Recuperando os dados do cursor
         resultados = cursor.fetchall()
+        cursor.close()
 
         if not resultados:
             print("Nenhum registro encontrado.")
