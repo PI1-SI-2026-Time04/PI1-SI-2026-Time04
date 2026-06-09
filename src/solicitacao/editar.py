@@ -42,7 +42,7 @@ def atualizar_status_solicitacao(id_solicitacao, novo_status):
         WHERE id_solicitacao = %s
         """
 
-        cursor.execute(sql, (novo_status, id_solicitacao))
+        cursor.execute(sql, [novo_status, id_solicitacao])
         conexao.commit()
         cursor.close()
 

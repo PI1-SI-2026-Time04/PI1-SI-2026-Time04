@@ -19,7 +19,7 @@ def editar_solicitante():
         cursor = conexao.cursor(buffered=True)
 
         sql = "SELECT * FROM solicitantes WHERE id_usuario = %s"
-        valores = (id_solicitante,)
+        valores = [id_solicitante]
 
         cursor.execute(sql, valores)
 
@@ -58,7 +58,7 @@ def editar_solicitante():
                             UPDATE solicitantes
                             SET nome = %s
                             WHERE id_usuario = %s
-                        """, (novo_nome, id_solicitante))
+                        """, [novo_nome, id_solicitante])
 
                         conexao.commit()
                         print("Nome atualizado com sucesso!\n")
@@ -71,7 +71,7 @@ def editar_solicitante():
                             FROM solicitantes
                             WHERE email = %s
                             AND id_usuario <> %s
-                        """, (novo_email, id_solicitante))
+                        """, [novo_email, id_solicitante])
 
                         if cursor.fetchone():
                             print("Este e-mail já está cadastrado para outro usuário.\n")
@@ -80,7 +80,7 @@ def editar_solicitante():
                                 UPDATE solicitantes
                                 SET email = %s
                                 WHERE id_usuario = %s
-                            """, (novo_email, id_solicitante))
+                            """, [novo_email, id_solicitante])
 
                             conexao.commit()
                             print("E-mail atualizado com sucesso!\n")
@@ -103,7 +103,7 @@ def editar_solicitante():
                             FROM solicitantes
                             WHERE celular = %s
                             AND id_usuario <> %s
-                        """, (novo_celular, id_solicitante))
+                        """, [novo_celular, id_solicitante])
 
                         if cursor.fetchone():
                             print("Este telefone já está cadastrado para outro usuário.\n")
@@ -112,7 +112,7 @@ def editar_solicitante():
                                 UPDATE solicitantes
                                 SET celular = %s
                                 WHERE id_usuario = %s
-                            """, (novo_celular, id_solicitante))
+                            """, [novo_celular, id_solicitante])
 
                             conexao.commit()
                             print("Número de celular atualizado com sucesso!\n")
