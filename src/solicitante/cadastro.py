@@ -17,7 +17,6 @@ def cadastro_solicitante():
             continuar_pedindo_nome = False
 
     # -------------------------=========================------------------------ #
-
     continuar_pedindo_email = True
 
     while continuar_pedindo_email:
@@ -34,13 +33,14 @@ def cadastro_solicitante():
             email = email_validado.email
 
             conexao = obtem_conexao()
-            cursor = conexao.cursor()
+            cursor = conexao.cursor(buffered=True)
 
             # verifica se email já existe
             sql_verifica = "SELECT * FROM solicitantes WHERE email = %s"
             cursor.execute(sql_verifica, (email,))
 
             resultado = cursor.fetchone()
+            cursor.close()
 
             if resultado:
                 print("Este e-mail já está cadastrado. Tente novamente.")
@@ -54,7 +54,6 @@ def cadastro_solicitante():
             print(f"Erro ao verificar email: {erro}")
 
     # -------------------------=========================------------------------ #
-
     # Validando número de celular
     continuar_pedindo_celular = True
 
@@ -65,9 +64,24 @@ def cadastro_solicitante():
             print("Número de celular inválido. Digite apenas números.")
         else:
             if len(celular) != 11:
-                print("Número inválido. Um celular deve ter 11 digitos.")
+                print("Número inválido. Um celular deve ter 11 dígitos.")
             else:
-                continuar_pedindo_celular = False
+                try:
+                    conexao = obtem_conexao()
+                    cursor = conexao.cursor(buffered=True)
+
+                    sql_verifica = "SELECT * FROM solicitantes WHERE celular = %s"
+                    cursor.execute(sql_verifica, (celular,))
+
+                    resultado = cursor.fetchone()
+                    cursor.close()
+
+                    if resultado:
+                        print("Este celular já está cadastrado. Tente novamente.")
+                    else:
+                        continuar_pedindo_celular = False
+                except mysql.connector.Error as erro:
+                    print(f"Erro ao verificar celular: {erro}")
 
     try:
         # Abrindo a conexão
@@ -81,6 +95,7 @@ def cadastro_solicitante():
         # Executando e salvando (commit)
         cursor.execute(sql, valores)  # perceba que eu estou passando como parâmetro as 2 váriaveis acima
         conexao.commit()
+        cursor.close()
 
         print("\nSolicitante cadastrado com sucesso")
 

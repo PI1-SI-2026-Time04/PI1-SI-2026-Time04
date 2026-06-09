@@ -14,6 +14,7 @@ def total_solicitacoes_por_status():
 
         cursor.execute(sql)
         resultados = cursor.fetchall()
+        cursor.close()
 
         if not resultados:
             print("\nNenhuma solicitação cadastrada.\n")

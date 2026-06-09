@@ -15,6 +15,7 @@ def total_solicitacoes_por_prioridade():
         cursor.execute(sql)
 
         resultados = cursor.fetchall()
+        cursor.close()
 
         print("\n--- Total de Solicitações por Prioridade ---")
 

@@ -18,7 +18,7 @@ def opcoes_consultas_solicitacoes():
         menu_consultas_solicitacoes()
         
         try:
-            opcao = int(input("Digite o número da opção desejada: "))
+            opcao = int(input("\nDigite o número da opção desejada: "))
         except ValueError:
             print("Digite um número")
         else:

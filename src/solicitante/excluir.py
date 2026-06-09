@@ -16,7 +16,7 @@ def excluir_solicitante():
 
     try:
         conexao = obtem_conexao()
-        cursor = conexao.cursor()
+        cursor = conexao.cursor(buffered=True)
 
         sql = "SELECT * FROM solicitantes WHERE id_usuario = %s"
         valores = (id_solicitante,)
@@ -27,6 +27,7 @@ def excluir_solicitante():
 
         if resultado is None:
             print("Solicitante não encontrado")
+            cursor.close()
         else:
             print("Dados atuais:", resultado, "\n")
 
@@ -47,7 +48,7 @@ def excluir_solicitante():
             elif confirmacao == "N":
                 print("Exclusão cancelada.")
 
-
+            cursor.close()
 
 
     except mysql.connector.Error as erro:

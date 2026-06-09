@@ -15,12 +15,13 @@ def abrir_solicitacao():
 
         else:
             conexao = obtem_conexao()
-            cursor = conexao.cursor()
+            cursor = conexao.cursor(buffered=True)
 
             sql_verifica = "SELECT * FROM solicitantes WHERE id_usuario = %s"
             cursor.execute(sql_verifica, (id_solicitante,))
 
             resultado = cursor.fetchone()
+            cursor.close()
 
             if not resultado:
                 print("O ID que você inseriu não existe. Tente novamente.")
@@ -146,6 +147,7 @@ def abrir_solicitacao():
 
         cursor.execute(sql, valores)
         conexao.commit()
+        cursor.close()
 
         print("\nSolicitação aberta com sucesso!")
 

@@ -26,6 +26,7 @@ def consultar_por_solicitante():
         valores = (id_solicitante,)
         cursor.execute(sql, valores)
         resultados = cursor.fetchall()
+        cursor.close()
 
         if not resultados:
             print("\nNenhuma solicitação encontrada.\n")
@@ -34,15 +35,13 @@ def consultar_por_solicitante():
         print("\n=== Solicitações do Solicitante ===\n")
 
         for linha in resultados:
-            print(f"""
-ID Solicitação: {linha[0]}
+            print(f"""ID Solicitação: {linha[0]}
 Solicitante: {linha[1]}
 Categoria: {linha[2]}
 Prioridade: {linha[3]}
 Status: {linha[4]}
 Data: {linha[5]}
---------------------------
-""")
+--------------------------""")
 
     except ValueError:
         print("Digite um ID válido.")
