@@ -67,13 +67,23 @@ def editar_solicitante():
                         novo_email = input("Digite o novo e-mail: ")
 
                         cursor.execute("""
-                            UPDATE solicitantes
-                            SET email = %s
-                            WHERE id_usuario = %s
+                            SELECT id_usuario
+                            FROM solicitantes
+                            WHERE email = %s
+                            AND id_usuario <> %s
                         """, (novo_email, id_solicitante))
 
-                        conexao.commit()
-                        print("E-mail atualizado com sucesso!\n")
+                        if cursor.fetchone():
+                            print("Este e-mail já está cadastrado para outro usuário.\n")
+                        else:
+                            cursor.execute("""
+                                UPDATE solicitantes
+                                SET email = %s
+                                WHERE id_usuario = %s
+                            """, (novo_email, id_solicitante))
+
+                            conexao.commit()
+                            print("E-mail atualizado com sucesso!\n")
 
                     elif opcao_desejada == 3:
                         continuar_pedindo_celular = True
@@ -84,21 +94,32 @@ def editar_solicitante():
                             if not novo_celular.isdigit():
                                 print("Número de celular inválido. Digite apenas números.")
                             elif len(novo_celular) != 11:
-                                print("Número inválido. Um celular deve ter 11 digitos.")
+                                print("Número inválido. Um celular deve ter 11 dígitos.")
                             else:
                                 continuar_pedindo_celular = False
 
                         cursor.execute("""
-                            UPDATE solicitantes
-                            SET celular = %s
-                            WHERE id_usuario = %s
+                            SELECT id_usuario
+                            FROM solicitantes
+                            WHERE celular = %s
+                            AND id_usuario <> %s
                         """, (novo_celular, id_solicitante))
 
-                        conexao.commit()
-                        print("Número de celular atualizado com sucesso!\n")
+                        if cursor.fetchone():
+                            print("Este telefone já está cadastrado para outro usuário.\n")
+                        else:
+                            cursor.execute("""
+                                UPDATE solicitantes
+                                SET celular = %s
+                                WHERE id_usuario = %s
+                            """, (novo_celular, id_solicitante))
+
+                            conexao.commit()
+                            print("Número de celular atualizado com sucesso!\n")
 
                     elif opcao_desejada == 4:
                         opcoes_edicao = False
+
                     else:
                         print("Número fora da opção desejada.")
 
