@@ -23,7 +23,7 @@ def consultar_por_solicitante():
         ORDER BY s.data_abertura DESC
         """
 
-        valores = (id_solicitante,)
+        valores = [id_solicitante]
         cursor.execute(sql, valores)
         resultados = cursor.fetchall()
         cursor.close()

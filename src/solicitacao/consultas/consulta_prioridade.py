@@ -17,13 +17,20 @@ def consultar_por_prioridade():
         cursor = conexao.cursor()
 
         sql = """
-        SELECT id_solicitacao, categoria, prioridade, status
-        FROM solicitacoes
-        WHERE prioridade = %s
-        ORDER BY data_abertura DESC
+        SELECT s.id_solicitacao,
+               sol.nome,
+               s.categoria,
+               s.prioridade,
+               s.status,
+               s.data_abertura
+        FROM solicitacoes s
+        JOIN solicitantes sol
+            ON s.id_usuario = sol.id_usuario
+        WHERE s.prioridade = %s
+        ORDER BY s.data_abertura DESC
         """
 
-        cursor.execute(sql, (prioridade,))
+        cursor.execute(sql, [prioridade])
         resultados = cursor.fetchall()
         cursor.close()
 
@@ -34,11 +41,13 @@ def consultar_por_prioridade():
         print(f"\n=== Solicitações {prioridade.upper()} ===\n")
 
         for linha in resultados:
-            print(f"""ID: {linha[0]}
-Categoria: {linha[1]}
-Prioridade: {linha[2]}
-Status: {linha[3]}
-------------------------""")
+            print(f"""ID Solicitação: {linha[0]}
+Solicitante: {linha[1]}
+Categoria: {linha[2]}
+Prioridade: {linha[3]}
+Status: {linha[4]}
+Data: {linha[5]}
+--------------------------""")
 
     except mysql.connector.Error as erro:
         print(f"Falha ao consultar por prioridade: {erro}")

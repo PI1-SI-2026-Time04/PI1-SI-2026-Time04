@@ -18,7 +18,7 @@ def abrir_solicitacao():
             cursor = conexao.cursor(buffered=True)
 
             sql_verifica = "SELECT * FROM solicitantes WHERE id_usuario = %s"
-            cursor.execute(sql_verifica, (id_solicitante,))
+            cursor.execute(sql_verifica, [id_solicitante])
 
             resultado = cursor.fetchone()
             cursor.close()
@@ -51,6 +51,16 @@ def abrir_solicitacao():
                 continuar_pedindo_categoria = False
             else:
                 print("Número fora do escopo. Tente novamente")
+
+    categoria_map = {
+        1: "Suporte de TI",
+        2: "Manutenção Predial",
+        3: "Suprimentos / Almoxarifado",
+        4: "Recursos Humanos (RH)",
+        5: "Serviços Administrativos"
+    }
+
+    categoria = categoria_map[categoria]
 
     # Descrição
     continuar_pedindo_descricao = True
@@ -136,14 +146,14 @@ def abrir_solicitacao():
         VALUES (%s, %s, %s, %s, %s, %s)
         """
 
-        valores = (
+        valores = [
             id_solicitante,
             categoria,
             descricao,
             urgencia,
             impacto,
             prioridade
-        )
+        ]
 
         cursor.execute(sql, valores)
         conexao.commit()

@@ -37,7 +37,7 @@ def cadastro_solicitante():
 
             # verifica se email já existe
             sql_verifica = "SELECT * FROM solicitantes WHERE email = %s"
-            cursor.execute(sql_verifica, (email,))
+            cursor.execute(sql_verifica, [email])
 
             resultado = cursor.fetchone()
             cursor.close()
@@ -71,7 +71,7 @@ def cadastro_solicitante():
                     cursor = conexao.cursor(buffered=True)
 
                     sql_verifica = "SELECT * FROM solicitantes WHERE celular = %s"
-                    cursor.execute(sql_verifica, (celular,))
+                    cursor.execute(sql_verifica, [celular])
 
                     resultado = cursor.fetchone()
                     cursor.close()
@@ -90,7 +90,7 @@ def cadastro_solicitante():
 
         # Query para inserir os dados no banco
         sql = "INSERT INTO solicitantes (nome, email, celular) VALUES (%s, %s, %s)"
-        valores = (nome, email, celular)
+        valores = [nome, email, celular]
 
         # Executando e salvando (commit)
         cursor.execute(sql, valores)  # perceba que eu estou passando como parâmetro as 2 váriaveis acima

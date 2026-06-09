@@ -19,7 +19,7 @@ def excluir_solicitante():
         cursor = conexao.cursor(buffered=True)
 
         sql = "SELECT * FROM solicitantes WHERE id_usuario = %s"
-        valores = (id_solicitante,)
+        valores = [id_solicitante]
 
         cursor.execute(sql, valores)
 

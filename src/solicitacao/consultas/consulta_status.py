@@ -30,7 +30,7 @@ def consultar_por_status():
         ORDER BY s.data_abertura DESC
         """
 
-        cursor.execute(sql, (status,))
+        cursor.execute(sql, [status])
         resultados = cursor.fetchall()
         cursor.close()
 
